@@ -66,11 +66,41 @@
      * @return array sorted in ascending order
      *
      */
-    static double [] quickSort (double a[]){
-	
+    static double[] quickSort(double a[]){
+    	 recursiveQuick(a, 0, a.length-1);
+    	 return a;
 		 //todo: implement the sort
 
     }//end quicksort
+    
+    static void recursiveQuick(double a[], int low, int high) {
+    	if(high <= low) {return;}
+    	int pivotPos= partition(a, low, high);
+    	recursiveQuick(a, low, pivotPos-1);
+    	recursiveQuick(a, pivotPos+1, high);
+    }
+    /*
+     * Used by the quicksort algorithm to separate the array into two sub arrays 
+     * 
+     */
+    static int partition(double[] vals, int high, int low) {
+    	int i= low;
+    	int j = high+1;
+    	double pivot = vals[low];
+    	while(true) {
+    		while((vals[++i]<pivot)) {
+    			if(i== high) break;}
+    		while((pivot<vals[--j])) {
+    			if(j == low) break;}
+    		if(i>= j) break;
+    		double temp = vals[i];
+    		vals[i] = vals[j];
+    		vals[j] = temp;
+    	}
+    	vals[low] = vals[j];
+    	vals[j] = pivot;
+    	return j;
+    }
 
     /**
      * Sorts an array of doubles using Merge Sort.
@@ -79,6 +109,10 @@
      * @return array sorted in ascending order
      *
      */
+    static void mergeSort(double[] a) {
+    	double[] sub = new double[a.length];
+    	mergeSortRecursive(a, sub, 0, a.length-1);
+    }
     /**
      * Sorts an array of doubles using iterative implementation of Merge Sort.
      * This method is static, thus it can be called as SortComparison.sort(a)
@@ -88,11 +122,32 @@
      */
 
     static double[] mergeSortIterative (double a[]) {
-
-		 //todo: implement the sort
+    	int n = a.length;
+    	double[] aux = new double[n];
+    	for(int size=1;size<n; size=size*2) {
+    		for(int low=0;low<n-size;low+=size*2) {
+    			merge(a,aux,low,low+size-1,Math.min(low+size+size-1, n-1));
+    		}
+    	}
+    	return a;
 	
     }//end mergesortIterative
-    
+    /**
+     * part of the recursive merge sort function, merges the arrays
+     * 
+     */
+    static void merge(double a[], double aux[], int low, int middle, int high) {
+    	for(int t=low;t<=high;t++) {
+			 aux[t] = a[t];
+		 }
+		 int i=low, j=middle+1;
+		 for(int t=low;t<=high;t++) {
+			 if(i>middle)	 a[t] = aux[j++];
+			 else if(j>high) a[t] = aux[i++];
+			 else if(Double.compare(aux[j], aux[i])<0) a[t] = aux[j++];
+			 else 			 a[t] = aux[i++];
+		 }
+    }
     
     
     /**
@@ -102,17 +157,17 @@
      * @param a: An unsorted array of doubles.
      * @return after the method returns, the array must be in ascending sorted order.
      */
-    static double[] mergeSortRecursive (double a[]) {
-    	
-
-    	//todo: implement the sort
+    static void mergeSortRecursive (double a[], double aux[], int low, int high) {
+    	if(high<=low) return;
+    	int mid = low+(high-low)/2;
+    	mergeSortRecursive(a, aux, low, high);
+    	mergeSortRecursive(a, aux, mid+1, high);
+    	if(!(Double.compare(a[mid+1], a[mid])<0)) return;
+    	merge(a, aux, low, mid, high);
 	
    }//end mergeSortRecursive
     	
     
-
-
-   
 
 
     public static void main(String[] args) {
