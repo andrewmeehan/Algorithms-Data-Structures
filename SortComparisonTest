@@ -1,0 +1,114 @@
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
+
+//-------------------------------------------------------------------------
+/**
+ *  Test class for SortComparison.java
+ *
+ *  @author
+ *  @version HT 2020
+ */
+@RunWith(JUnit4.class)
+public class SortComparisonTest
+{
+    //~ Constructor ........................................................
+    @Test
+    public void testConstructor()
+    {
+        new SortComparison();
+    }
+
+    //~ Public Methods ........................................................
+
+    // ----------------------------------------------------------
+    /**
+     * Check that the methods work for empty arrays
+     */
+    @Test
+    public void testEmpty()
+    {
+    	double[] empty = {};
+    	double[] sortedEmpty0 = SortComparison.insertionSort(empty);
+    	
+    }
+    
+    public void testInsertionSort() {
+    	double[] unsorted = { 3, 4, 5, 1, 633, 2, 124, 14, 342, 28, 43};
+    	double[] oneElem = {3};
+    	double[] sortedArray = {1,2,3,4,5,6,7,8,9,10};
+    	double[] sorted0 = SortComparison.insertionSort(unsorted);
+    	double[] sorted1 = SortComparison.insertionSort(oneElem);
+    	double[] sorted2 = SortComparison.insertionSort(sortedArray);
+    	System.out.print(sorted0);
+    	System.out.print(sorted1);
+    	System.out.print(sorted2);
+    }
+    
+    public void testSelectionSort() {
+    	double[] unsorted = { 3, 4, 5, 1, 633, 2, 124, 14, 342, 28, 43};
+    	double[] oneElem = {3};
+    	double[] sortedArray = {1,2,3,4,5,6,7,8,9,10};
+    	double[] sorted0 = SortComparison.selectionSort(unsorted);
+    	double[] sorted1 = SortComparison.selectionSort(oneElem);
+    	double[] sorted2 = SortComparison.selectionSort(sortedArray);
+    	System.out.print(sorted0);
+    	System.out.print(sorted1);
+    	System.out.print(sorted2);
+    }
+    
+    public void testQuickSort() {
+    	double[] unsorted = { 3, 4, 5, 1, 633, 2, 124, 14, 342, 28, 43};
+    	double[] oneElem = {3};
+    	double[] sortedArray = {1,2,3,4,5,6,7,8,9,10};
+    	double[] sorted0 = SortComparison.quickSort(unsorted);
+    	double[] sorted1 = SortComparison.quickSort(oneElem);
+    	double[] sorted2 = SortComparison.quickSort(sortedArray);
+    	System.out.print(sorted0);
+    	System.out.print(sorted1);
+    	System.out.print(sorted2);
+    }
+    
+    public void testMergeSortIterative() {
+    	double[] unsorted = { 3, 4, 5, 1, 633, 2, 124, 14, 342, 28, 43};
+    	double[] oneElem = {3};
+    	double[] sortedArray = {1,2,3,4,5,6,7,8,9,10};
+    	double[] sorted0 = SortComparison.mergeSortIterative(unsorted);
+    	double[] sorted1 = SortComparison.mergeSortIterative(oneElem);
+    	double[] sorted2 = SortComparison.mergeSortIterative(sortedArray);
+    	System.out.print(sorted0);
+    	System.out.print(sorted1);
+    	System.out.print(sorted2);
+    }
+    
+    public void testMergeSortRecursive() {
+    	double[] unsorted = { 3, 4, 5, 1, 633, 2, 124, 14, 342, 28, 43};
+    	double[] oneElem = {3};
+    	double[] sortedArray = {1,2,3,4,5,6,7,8,9,10};
+    	SortComparison.mergeSort(unsorted);
+    	SortComparison.mergeSort(oneElem);
+    	SortComparison.mergeSort(sortedArray);
+    	System.out.print(unsorted);
+    	System.out.print(oneElem);
+    	System.out.print(sortedArray);
+    }
+    
+
+
+    // TODO: add more tests here. Each line of code and ech decision in Collinear.java should
+    // be executed at least once from at least one test.
+
+    // ----------------------------------------------------------
+    /**
+     *  Main Method.
+     *  Use this main method to create the experiments needed to answer the experimental performance questions of this assignment.
+     *
+     */
+    public static void main(String[] args)
+    {
+        //TODO: implement this method
+    }
+
+}
