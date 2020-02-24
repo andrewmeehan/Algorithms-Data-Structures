@@ -1,5 +1,8 @@
 import static org.junit.Assert.assertEquals;
 
+import java.io.*;
+import java.util.ArrayList;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -32,6 +35,15 @@ public class SortComparisonTest
     {
     	double[] empty = {};
     	double[] sortedEmpty0 = SortComparison.insertionSort(empty);
+    	double[] sortedEmpty1 = SortComparison.selectionSort(empty);
+    	double[] sortedEmpty2 = SortComparison.quickSort(empty);
+    	double[] sortedEmpty3 = SortComparison.mergeSortIterative(empty);
+    	double[] sortedEmpty4 = SortComparison.mergeSort(empty);
+    	System.out.print(sortedEmpty0);
+    	System.out.print(sortedEmpty1);
+    	System.out.print(sortedEmpty2);
+    	System.out.print(sortedEmpty3);
+    	System.out.print(sortedEmpty4);
     	
     }
     
@@ -87,28 +99,111 @@ public class SortComparisonTest
     	double[] unsorted = { 3, 4, 5, 1, 633, 2, 124, 14, 342, 28, 43};
     	double[] oneElem = {3};
     	double[] sortedArray = {1,2,3,4,5,6,7,8,9,10};
-    	SortComparison.mergeSort(unsorted);
-    	SortComparison.mergeSort(oneElem);
-    	SortComparison.mergeSort(sortedArray);
-    	System.out.print(unsorted);
-    	System.out.print(oneElem);
-    	System.out.print(sortedArray);
+    	double[] sorted0 = SortComparison.mergeSort(unsorted);
+    	double[] sorted1 = SortComparison.mergeSort(oneElem);
+    	double[] sorted2 = SortComparison.mergeSort(sortedArray);
+    	System.out.print(sorted0);
+    	System.out.print(sorted1);
+    	System.out.print(sorted2);
     }
     
-
-
-    // TODO: add more tests here. Each line of code and ech decision in Collinear.java should
-    // be executed at least once from at least one test.
-
-    // ----------------------------------------------------------
     /**
      *  Main Method.
      *  Use this main method to create the experiments needed to answer the experimental performance questions of this assignment.
+     * @throws IOException 
      *
      */
-    public static void main(String[] args)
+    public static void main(String[] args) throws IOException
     {
-        //TODO: implement this method
+        File file0 = new File("C:\\Users\\My Laptop\\Documents\\2nd Year\\2nd Semester\\Algorithms & Data Structures\\Assignment 1 files\\numbers10");
+        File file1 = new File("C:\\Users\\My Laptop\\Documents\\2nd Year\\2nd Semester\\Algorithms & Data Structures\\Assignment 1 files\\numbers100");
+        File file2 = new File("C:\\Users\\My Laptop\\Documents\\2nd Year\\2nd Semester\\Algorithms & Data Structures\\Assignment 1 files\\numbers1000");
+        File file3 = new File("C:\\Users\\My Laptop\\Documents\\2nd Year\\2nd Semester\\Algorithms & Data Structures\\Assignment 1 files\\numbers1000Duplicates");
+        File file4 = new File("C:\\Users\\My Laptop\\Documents\\2nd Year\\2nd Semester\\Algorithms & Data Structures\\Assignment 1 files\\numbersNearlyOrdered1000");
+        File file5 = new File("C:\\Users\\My Laptop\\Documents\\2nd Year\\2nd Semester\\Algorithms & Data Structures\\Assignment 1 files\\numbersReverse1000");
+        File file6 = new File("C:\\Users\\My Laptop\\Documents\\2nd Year\\2nd Semester\\Algorithms & Data Structures\\Assignment 1 files\\numbersSorted1000");
+        
+        BufferedReader reader0 = new BufferedReader(new FileReader(file0));
+        BufferedReader reader1 = new BufferedReader(new FileReader(file1));
+        BufferedReader reader2 = new BufferedReader(new FileReader(file2));
+        BufferedReader reader3 = new BufferedReader(new FileReader(file3));
+        BufferedReader reader4 = new BufferedReader(new FileReader(file4));
+        BufferedReader reader5 = new BufferedReader(new FileReader(file5));
+        BufferedReader reader6 = new BufferedReader(new FileReader(file6));
+
+        String string;
+        
+        ArrayList<Double> values0 = new ArrayList<Double>();
+        ArrayList<Double> values1 = new ArrayList<Double>();
+        ArrayList<Double> values2 = new ArrayList<Double>();
+        ArrayList<Double> values3 = new ArrayList<Double>();
+        ArrayList<Double> values4 = new ArrayList<Double>();
+        ArrayList<Double> values5 = new ArrayList<Double>();
+        ArrayList<Double> values6 = new ArrayList<Double>();
+        
+        while((string = reader0.readLine()) != null) {
+        	values0.add(Double.parseDouble(string));
+        } 
+        double[] numbers10 = new double[values0.size()];
+        for(int i=0;i<numbers10.length;i++) {
+        	numbers10[i] = values0.get(i).doubleValue();
+        }
+        
+        //------------------------------------------------
+        while((string = reader1.readLine()) != null) {
+        	values1.add(Double.parseDouble(string));
+        }
+        double[] numbers100 = new double[values1.size()];
+        for(int i=0;i<numbers100.length;i++) {
+        	numbers100[i] = values1.get(i).doubleValue();
+        }
+        
+        //------------------------------------------------
+        while((string = reader2.readLine()) != null) {
+        	values2.add(Double.parseDouble(string));
+        }
+        double[] numbers1000 = new double[values2.size()];
+        for(int i=0;i<numbers1000.length;i++) {
+        	numbers1000[i] = values2.get(i).doubleValue();
+        }
+        
+      //------------------------------------------------
+        while((string = reader3.readLine()) != null) {
+        	values3.add(Double.parseDouble(string));
+        }
+        double[] numbers1000Duplicates = new double[values3.size()];
+        for(int i=0;i<numbers1000Duplicates.length;i++) {
+        	numbers1000Duplicates[i] = values3.get(i).doubleValue();
+        }
+        
+      //------------------------------------------------
+        while((string = reader4.readLine()) != null) {
+        	values4.add(Double.parseDouble(string));
+        }
+        double[] numbersNearlyOrdered1000 = new double[values4.size()];
+        for(int i=0;i<numbersNearlyOrdered1000.length;i++) {
+        	numbersNearlyOrdered1000[i] = values4.get(i).doubleValue();
+        }
+        
+      //------------------------------------------------
+        while((string = reader5.readLine()) != null) {
+        	values5.add(Double.parseDouble(string));
+        }
+        double[] numbersReverse1000 = new double[values5.size()];
+        for(int i=0;i<numbersReverse1000.length;i++) {
+        	numbersReverse1000[i] = values5.get(i).doubleValue();
+        }
+        
+      //------------------------------------------------
+        while((string = reader6.readLine()) != null) {
+        	values6.add(Double.parseDouble(string));
+        }
+        double[] numbersSorted1000 = new double[values6.size()];
+        for(int i=0;i<numbersSorted1000.length;i++) {
+        	numbersSorted1000[i] = values6.get(i).doubleValue();
+        }
+        
+      //------------------------------------------------
     }
 
 }
