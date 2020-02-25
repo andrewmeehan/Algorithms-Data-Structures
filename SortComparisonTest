@@ -14,6 +14,48 @@ import org.junit.runners.JUnit4;
  *  @author
  *  @version HT 2020
  */
+/*	Measured in milliseconds
+ * 						   Insert  Selection MergeRecursive  MergeIterative  Quick 
+	10 random			 |	0.276 |	.191    |	0.207	   | 	 0.212	   | 0.212
+	100 random			 |	0.404 |	.418    |	0.052	   |	 0.232	   | 0.273
+	1000 random			 |	4.982 |	5.091   |	0.551	   |	 0.370	   | 1.093
+	1000 few unique		 |	1.455‬ |	1.285   |	0.092	   |	 0.178	   | 0.338
+	1000 nearly ordered  |	1.444 |	1.239‬   |	0.070	   |	 0.149	   | 1.047
+	1000 reverse order   |	1.530 |	1.339   | 	0.061	   |	 0.145	   | 1.308
+	1000 sorted			 |	1.328 |	1.295‬   |	0.049	   |	 0.143	   | 1.300
+	
+	a. Which of the sorting algorithms does the order of input have an impact on? Why?
+		
+		- Insertion and Selection were most affected by the order if the elements
+		
+	b. Which algorithm has the biggest difference between the best and worst performance, based
+	   on the type of input, for the input of size 1000? Why?
+	    
+	    - selection sort was the worst, closely followed by insertion. These are no the best for sorting larger file sizes compared
+	    	to the others
+	    	
+	c. Which algorithm has the best/worst scalability, i.e., the difference in performance time
+	   based on the input size? Please consider only input files with random order for this answer.
+	   
+	    - best would be merge iterative, which stays in a much smaller range than the others
+	      worst is selection sort
+	      
+	d. Did you observe any difference between iterative and recursive implementations of merge
+	   sort?
+	    
+	    - the recursive version performed better, but had a more inconsistent range than iterative
+	      ie iterative is more predictable to time, but recursive is faster than it in some cases
+	       
+	e. Which algorithm is the fastest for each of the 7 input files?	
+	
+		- numbers10.txt = Selection
+        - numbers100.txt = MergeRecursive
+        - numbers1000.txt = MergeIterative
+        - numbers1000Duplicates = MergeRecursive
+        - numbersNearlyOrdered1000 = MergeRecursive
+        - numbersReverse1000 = MergeRecursive
+        - numbersSorted1000 = MergeRecursive
+ */
 @RunWith(JUnit4.class)
 public class SortComparisonTest
 {
@@ -38,7 +80,7 @@ public class SortComparisonTest
     	double[] sortedEmpty1 = SortComparison.selectionSort(empty);
     	double[] sortedEmpty2 = SortComparison.quickSort(empty);
     	double[] sortedEmpty3 = SortComparison.mergeSortIterative(empty);
-    	double[] sortedEmpty4 = SortComparison.mergeSort(empty);
+    	double[] sortedEmpty4 = SortComparison.mergeSortRecursive(empty);
     	System.out.print(sortedEmpty0);
     	System.out.print(sortedEmpty1);
     	System.out.print(sortedEmpty2);
@@ -99,9 +141,9 @@ public class SortComparisonTest
     	double[] unsorted = { 3, 4, 5, 1, 633, 2, 124, 14, 342, 28, 43};
     	double[] oneElem = {3};
     	double[] sortedArray = {1,2,3,4,5,6,7,8,9,10};
-    	double[] sorted0 = SortComparison.mergeSort(unsorted);
-    	double[] sorted1 = SortComparison.mergeSort(oneElem);
-    	double[] sorted2 = SortComparison.mergeSort(sortedArray);
+    	double[] sorted0 = SortComparison.mergeSortRecursive(unsorted);
+    	double[] sorted1 = SortComparison.mergeSortRecursive(oneElem);
+    	double[] sorted2 = SortComparison.mergeSortRecursive(sortedArray);
     	System.out.print(sorted0);
     	System.out.print(sorted1);
     	System.out.print(sorted2);
@@ -113,15 +155,16 @@ public class SortComparisonTest
      * @throws IOException 
      *
      */
+    
     public static void main(String[] args) throws IOException
     {
-        File file0 = new File("C:\\Users\\My Laptop\\Documents\\2nd Year\\2nd Semester\\Algorithms & Data Structures\\Assignment 1 files\\numbers10");
-        File file1 = new File("C:\\Users\\My Laptop\\Documents\\2nd Year\\2nd Semester\\Algorithms & Data Structures\\Assignment 1 files\\numbers100");
-        File file2 = new File("C:\\Users\\My Laptop\\Documents\\2nd Year\\2nd Semester\\Algorithms & Data Structures\\Assignment 1 files\\numbers1000");
-        File file3 = new File("C:\\Users\\My Laptop\\Documents\\2nd Year\\2nd Semester\\Algorithms & Data Structures\\Assignment 1 files\\numbers1000Duplicates");
-        File file4 = new File("C:\\Users\\My Laptop\\Documents\\2nd Year\\2nd Semester\\Algorithms & Data Structures\\Assignment 1 files\\numbersNearlyOrdered1000");
-        File file5 = new File("C:\\Users\\My Laptop\\Documents\\2nd Year\\2nd Semester\\Algorithms & Data Structures\\Assignment 1 files\\numbersReverse1000");
-        File file6 = new File("C:\\Users\\My Laptop\\Documents\\2nd Year\\2nd Semester\\Algorithms & Data Structures\\Assignment 1 files\\numbersSorted1000");
+        /*File file0 = new File("C:\\Users\\My Laptop\\Documents\\2nd Year\\2nd Semester\\Algorithms & Data Structures\\Assignment 1 files\\numbers10.txt");
+        File file1 = new File("C:\\Users\\My Laptop\\Documents\\2nd Year\\2nd Semester\\Algorithms & Data Structures\\Assignment 1 files\\numbers100.txt");
+        File file2 = new File("C:\\Users\\My Laptop\\Documents\\2nd Year\\2nd Semester\\Algorithms & Data Structures\\Assignment 1 files\\numbers1000.txt");
+        File file3 = new File("C:\\Users\\My Laptop\\Documents\\2nd Year\\2nd Semester\\Algorithms & Data Structures\\Assignment 1 files\\numbers1000Duplicates.txt");
+        File file4 = new File("C:\\Users\\My Laptop\\Documents\\2nd Year\\2nd Semester\\Algorithms & Data Structures\\Assignment 1 files\\numbersNearlyOrdered1000.txt");
+        File file5 = new File("C:\\Users\\My Laptop\\Documents\\2nd Year\\2nd Semester\\Algorithms & Data Structures\\Assignment 1 files\\numbersReverse1000.txt");
+        File file6 = new File("C:\\Users\\My Laptop\\Documents\\2nd Year\\2nd Semester\\Algorithms & Data Structures\\Assignment 1 files\\numbersSorted1000.txt");
         
         BufferedReader reader0 = new BufferedReader(new FileReader(file0));
         BufferedReader reader1 = new BufferedReader(new FileReader(file1));
@@ -204,6 +247,45 @@ public class SortComparisonTest
         }
         
       //------------------------------------------------
+        
+        long startingTime = System.nanoTime();
+        for(int i=0;i<10;i++) 
+        	SortComparison.quickSort(numbers10);
+        long insertionTest1 = System.nanoTime();
+        for(int i=0;i<10;i++)
+        	SortComparison.quickSort(numbers100);
+        long insertionTest2 = System.nanoTime();
+        for(int i=0;i<10;i++)
+        	SortComparison.quickSort(numbers1000);
+        long insertionTest3 = System.nanoTime();
+        for(int i=0;i<10;i++)
+        	SortComparison.quickSort(numbers1000Duplicates);
+        long insertionTest4 = System.nanoTime();
+        for(int i=0;i<10;i++)
+        	SortComparison.quickSort(numbersNearlyOrdered1000);
+        long insertionTest5 = System.nanoTime();
+        for(int i=0;i<10;i++)
+        	SortComparison.quickSort(numbersReverse1000);
+        long insertionTest6 = System.nanoTime();
+        for(int i=0;i<10;i++)
+        	SortComparison.quickSort(numbersSorted1000);
+        long insertionTest7 = System.nanoTime();
+        long ans=0;
+        ans = (insertionTest1-startingTime)/10;
+        System.out.println(ans);
+        ans = (insertionTest2-insertionTest1)/10;
+        System.out.println(ans);
+        ans = (insertionTest3-insertionTest2)/10;
+        System.out.println(ans);
+        ans = (insertionTest4-insertionTest3)/10;
+        System.out.println(ans);
+        ans = (insertionTest5-insertionTest4)/10;
+        System.out.println(ans);
+        ans = (insertionTest6-insertionTest5)/10;
+        System.out.println(ans);
+        ans = (insertionTest7-insertionTest6)/10;
+        System.out.println(ans);*/
+        
     }
 
 }
