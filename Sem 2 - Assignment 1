@@ -75,7 +75,7 @@
     
     static void recursiveQuick(double a[], int low, int high) {
     	if(high <= low) {return;}
-    	int pivotPos= partition(a, low, high);
+    	int pivotPos= partition(a, high, low);
     	recursiveQuick(a, low, pivotPos-1);
     	recursiveQuick(a, pivotPos+1, high);
     }
@@ -84,13 +84,13 @@
      * 
      */
     static int partition(double[] vals, int high, int low) {
-    	int i= low;
+    	int i = low;
     	int j = high+1;
     	double pivot = vals[low];
     	while(true) {
-    		while((vals[++i]<pivot)) {
-    			if(i== high) break;}
-    		while((pivot<vals[--j])) {
+    		while((pivot<vals[++i])) {
+    			if(i == high) break;}
+    		while((vals[--j]<pivot)) {
     			if(j == low) break;}
     		if(i>= j) break;
     		double temp = vals[i];
@@ -109,9 +109,9 @@
      * @return array sorted in ascending order
      *
      */
-    static double[] mergeSort(double[] a) {
+    static double[] mergeSortRecursive(double[] a) {
     	double[] sub = new double[a.length];
-    	mergeSortRecursive(a, sub, 0, a.length-1);
+    	mergeSort(a, sub, 0, a.length-1);
     	return a;
     }
     /**
@@ -158,11 +158,11 @@
      * @param a: An unsorted array of doubles.
      * @return after the method returns, the array must be in ascending sorted order.
      */
-    static void mergeSortRecursive (double a[], double aux[], int low, int high) {
+    static void mergeSort(double a[], double aux[], int low, int high) {
     	if(high<=low) return;
     	int mid = low+(high-low)/2;
-    	mergeSortRecursive(a, aux, low, high);
-    	mergeSortRecursive(a, aux, mid+1, high);
+    	mergeSort(a, aux, low, mid);
+    	mergeSort(a, aux, mid+1, high);
     	if(!(Double.compare(a[mid+1], a[mid])<0)) return;
     	mergeArrays(a, aux, low, mid, high);
 	
